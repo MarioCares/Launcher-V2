@@ -16,6 +16,8 @@ type
     procedure formCierra(Sender: TObject; var Action: TCloseAction);
     procedure cargaArchivos(Sender: TObject);
   private
+    hDrop: THandle;
+    procedure WMDropFiles(var Msg: TWMDropFiles); message WM_DROPFILES;
   public
   end;
 
@@ -24,11 +26,11 @@ type
 
 implementation
 
-uses MainWindow;
+uses MainWindow, ShellAPI;
 
 {$R *.dfm}
 
-  procedure TForm2.cargaArchivos(Sender: TObject);
+procedure TForm2.cargaArchivos(Sender: TObject);
     var ruta: String;
     begin
       ruta := ExtractFilePath(Application.ExeName);
@@ -39,12 +41,34 @@ uses MainWindow;
       DS.DataSet := CDS;
       DBGrid1.DataSource := DS;
       CDS.Active := True;
+      DragAcceptFiles(handle, true);
+    end;
+
+  procedure TForm2.WMDropFiles(var Msg: TWMDropFiles);
+    var
+      CFileName: array[0..MAX_PATH] of Char;
+    begin
+      try
+    if DragQueryFile(Msg.Drop, 0, CFileName, MAX_PATH) > 0 then
+    begin
+      DBGrid1.DataSource.DataSet.Insert;
+      CDS.Edit;
+      CDS.FieldByName('nombre').AsString :=
+        ChangeFileExt(ExtractFileName(CFileName), '');
+      CDS.FieldByName('ruta').AsString := CFileName;
+      CDS.Post;
+      Msg.Result := 0;
+    end;
+  finally
+    DragFinish(Msg.Drop);
+  end;
     end;
 
   procedure TForm2.formCierra(Sender: TObject; var Action: TCloseAction);
     begin
       CDS.ApplyUpdates(-1);
-      MainWindow.Form1.carga;
+      DragFinish(hDrop);
+      Form1.carga;
       Action := caFree;
     end;
 
