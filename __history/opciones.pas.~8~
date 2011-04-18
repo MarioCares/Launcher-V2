@@ -4,21 +4,24 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Grids, DBGrids;
+  Dialogs, StdCtrls, Grids, DBGrids, DB, DBClient, xmldom, Provider, Xmlxform;
 
 type
+  TTheArray = array of array of Integer;
   TForm2 = class(TForm)
     GroupBox1: TGroupBox;
-    StringGrid1: TStringGrid;
+    DBGrid1: TDBGrid;
+    XMLTransformProvider1: TXMLTransformProvider;
+    DataSource1: TDataSource;
+    ClientDataSet1: TClientDataSet;
     procedure formCierra(Sender: TObject; var Action: TCloseAction);
   private
-    { Private declarations }
   public
-    { Public declarations }
   end;
 
-var
+  var
   Form2: TForm2;
+  LocalField: TTheArray;
 
 implementation
 

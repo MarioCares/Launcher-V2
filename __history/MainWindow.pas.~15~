@@ -3,8 +3,8 @@ unit MainWindow;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls,
-  Forms, Dialogs, StdCtrls, ActnList, ComCtrls, ExtCtrls, Menus,
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, midaslib,
+  Forms, Dialogs, StdCtrls, ActnList, ComCtrls, ExtCtrls, Menus, opciones,
   HotKeyManager, xmldom, Xmlxform, XMLIntf, msxmldom, XMLDoc, ShellAPI;
 
 type
@@ -18,6 +18,7 @@ type
     HotKey1: THotKey;
     HotKeyManager1: THotKeyManager;
     XML: TXMLDocument;
+    Opciones1: TMenuItem;
     procedure fijarVentana(Sender: TObject);
     procedure mostrarVentana;
     procedure ocultarVentana;
@@ -26,6 +27,11 @@ type
     procedure Cerrar1Click(Sender: TObject);
     procedure iniciar(Sender: TObject);
     procedure hotKeyAbrir(HotKey: Cardinal; Index: Word);
+    procedure ejecutar(ind: Integer);
+    function findInd(nombreApp: String): Integer;
+    procedure abrirApp(Sender: TObject; var Key: Char);
+    procedure Opciones1Click(Sender: TObject);
+    procedure carga;
   private
     HotKeyIndex1: Word;
     var abierto: Boolean;
@@ -40,6 +46,42 @@ var
 implementation
 
 {$R *.dfm}
+
+  procedure TForm1.carga;
+    var
+      largo, i : Integer;
+    begin
+      XML.FileName := ExtractFilePath(Application.ExeName)+'programas.xml';
+      XML.Active := True; largo := XML.DocumentElement.ChildNodes.Count;
+      SetLength(ArrayProgramas, largo, 2);
+      for i := 0 to largo-1 do
+        begin
+          ArrayProgramas[i,0] := XML.DocumentElement.ChildNodes[i].Attributes['nombre'];
+          ArrayProgramas[i,1] := XML.DocumentElement.ChildNodes[i].Attributes['ruta'];
+        end;
+    end;
+
+  function TForm1.findInd(nombreApp: string): Integer;
+    var
+      i, id: Integer;
+    begin
+      for i := 0 to length(ArrayProgramas) -1 do
+        if ArrayProgramas[i,0] = nombreApp then
+          id := i;
+      Result := id;
+    end;
+
+  procedure TForm1.ejecutar(ind: Integer);
+    begin
+      ShellExecute(Form1.Handle, 'open', PWideChar(ArrayProgramas[ind,1]),
+        nil, nil, SW_SHOWNORMAL)
+    end;
+
+  procedure TForm1.abrirApp(Sender: TObject; var Key: Char);
+    begin
+      if key=#13 then
+        ejecutar(findInd(edit_programa.Text));
+    end;
 
   procedure TForm1.Cerrar1Click(Sender: TObject);
     begin
@@ -60,16 +102,8 @@ implementation
     end;
 
   procedure TForm1.iniciar(Sender: TObject);
-    var
-      largo, i : Integer;
     begin
-      largo := XML.DocumentElement.ChildNodes.Count;
-      SetLength(ArrayProgramas, largo, 2);
-      for i := 0 to largo-1 do
-      begin
-          ArrayProgramas[i,0] := XML.DocumentElement.ChildNodes[i].Attributes['nombre'];
-          ArrayProgramas[i,1] := XML.DocumentElement.ChildNodes[i].Attributes['ruta'];
-      end;
+      carga;
       HotKeyIndex1 := HotKeyManager1.AddHotKey(HotKey1.HotKey);
       abierto := False;
     end;
@@ -79,6 +113,18 @@ implementation
       Application.ShowMainForm := False;
       Form1.Visible := False;
       abierto := not abierto;
+    end;
+
+  procedure TForm1.Opciones1Click(Sender: TObject);
+    var formOpciones: TForm2;
+    begin
+      formOpciones:= TForm2.Create(Application);
+      try
+        formOpciones.ShowModal;
+        carga;
+      finally
+        formOpciones.Free;
+      end;
     end;
 
   procedure TForm1.Mostrar1Click(Sender: TObject);

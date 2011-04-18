@@ -3,7 +3,7 @@ object Form1: TForm1
   Top = 0
   BorderIcons = []
   Caption = 'Lanzador V-2'
-  ClientHeight = 24
+  ClientHeight = 26
   ClientWidth = 418
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -70,8 +70,6 @@ object Form1: TForm1
     Top = 48
   end
   object XML: TXMLDocument
-    Active = True
-    FileName = 'C:\Users\Mario Cares\Launcher-V2\Debug\Win32\programas.xml'
     Options = [doNodeAutoCreate, doAttrNull, doAutoPrefix, doNamespaceDecl, doAutoSave]
     Left = 320
     Top = 48

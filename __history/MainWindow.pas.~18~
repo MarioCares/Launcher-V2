@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, midaslib,
-  Forms, Dialogs, StdCtrls, ActnList, ComCtrls, ExtCtrls, Menus,
+  Forms, Dialogs, StdCtrls, ActnList, ComCtrls, ExtCtrls, Menus, opciones,
   HotKeyManager, xmldom, Xmlxform, XMLIntf, msxmldom, XMLDoc, ShellAPI;
 
 type
@@ -44,8 +44,6 @@ var
 
 implementation
 
-uses opciones;
-
 {$R *.dfm}
 
   procedure TForm1.carga;
@@ -60,7 +58,6 @@ uses opciones;
           ArrayProgramas[i,0] := XML.DocumentElement.ChildNodes[i].Attributes['nombre'];
           ArrayProgramas[i,1] := XML.DocumentElement.ChildNodes[i].Attributes['ruta'];
         end;
-        XML.Active := False;
     end;
 
   function TForm1.findInd(nombreApp: string): Integer;
@@ -143,7 +140,6 @@ uses opciones;
         SetForegroundWindow(Self.Handle);
         Form1.Show;
         Form1.Visible := True;
-        carga;
         abierto := not abierto;
       end;
 

@@ -24,8 +24,6 @@ type
 
 implementation
 
-uses MainWindow;
-
 {$R *.dfm}
 
   procedure TForm2.cargaArchivos(Sender: TObject);
@@ -44,7 +42,6 @@ uses MainWindow;
   procedure TForm2.formCierra(Sender: TObject; var Action: TCloseAction);
     begin
       CDS.ApplyUpdates(-1);
-      MainWindow.Form1.carga;
       Action := caFree;
     end;
 

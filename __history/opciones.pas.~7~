@@ -4,19 +4,21 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs;
+  Dialogs, StdCtrls, Grids, DBGrids;
 
 type
+  TTheArray = array of array of Integer;
   TForm2 = class(TForm)
+    GroupBox1: TGroupBox;
+    StringGrid1: TStringGrid;
     procedure formCierra(Sender: TObject; var Action: TCloseAction);
   private
-    { Private declarations }
   public
-    { Public declarations }
   end;
 
-var
+  var
   Form2: TForm2;
+  LocalField: TTheArray;
 
 implementation
 

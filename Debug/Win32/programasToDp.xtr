@@ -1,0 +1,15 @@
+<XmlTransformation Version="1.0"><Transform Direction="ToCds" DataEncoding="UTF-8"><SelectEach dest="DATAPACKET\ROWDATA\ROW" from="\Programas\Programa"><Select dest="@nombre" from="@nombre"/><Select dest="@ruta" from="@ruta"/></SelectEach></Transform><XmlSchema RootName="Programas"><![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Programas" type="ProgramasType"/>
+  <xs:complexType name="ProgramasType">
+    <xs:sequence>
+      <xs:element name="Programa" type="ProgramaType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Programa" type="ProgramaType"/>
+  <xs:complexType name="ProgramaType">
+    <xs:sequence/>
+    <xs:attribute name="nombre" type="xs:string"/>
+    <xs:attribute name="ruta" type="xs:string"/>
+  </xs:complexType>
+</xs:schema>]]></XmlSchema><CdsSkeleton/><XslTransform/><Skeleton><![CDATA[<?xml version="1.0"?><DATAPACKET Version="2.0"><METADATA><FIELDS><FIELD attrname="nombre" fieldtype="string" WIDTH="15"/><FIELD attrname="ruta" fieldtype="string" WIDTH="200"/></FIELDS><PARAMS/></METADATA><ROWDATA/><METADATA><FIELDS><FIELD attrname="nombre" fieldtype="string" WIDTH="15"/><FIELD attrname="ruta" fieldtype="string" WIDTH="200"/></FIELDS><PARAMS/></METADATA><ROWDATA/></DATAPACKET>
+]]></Skeleton></XmlTransformation>
