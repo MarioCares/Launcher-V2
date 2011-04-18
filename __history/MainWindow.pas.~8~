@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls,
-  Forms, Dialogs, StdCtrls, ActnList, ComCtrls, ExtCtrls, Menus, opciones,
+  Forms, Dialogs, StdCtrls, ActnList, ComCtrls, ExtCtrls, Menus,
   HotKeyManager, xmldom, Xmlxform, XMLIntf, msxmldom, XMLDoc, ShellAPI;
 
 type
@@ -18,7 +18,6 @@ type
     HotKey1: THotKey;
     HotKeyManager1: THotKeyManager;
     XML: TXMLDocument;
-    Opciones1: TMenuItem;
     procedure fijarVentana(Sender: TObject);
     procedure mostrarVentana;
     procedure ocultarVentana;
@@ -30,7 +29,6 @@ type
     procedure ejecutar(ind: Integer);
     function findInd(nombreApp: String): Integer;
     procedure abrirApp(Sender: TObject; var Key: Char);
-    procedure Opciones1Click(Sender: TObject);
   private
     HotKeyIndex1: Word;
     var abierto: Boolean;
@@ -108,19 +106,7 @@ implementation
       abierto := not abierto;
     end;
 
-  procedure TForm1.Opciones1Click(Sender: TObject);
-    var formOpciones: TForm2;
-    begin
-      formOpciones:= TForm2.Create(Application);
-      try
-        formOpciones.ShowModal;
-        //formOpciones.llenaGrilla(ArrayProgramas);
-      finally
-        formOpciones.Free;
-      end;
-    end;
-
-procedure TForm1.Mostrar1Click(Sender: TObject);
+  procedure TForm1.Mostrar1Click(Sender: TObject);
     begin
       mostrarVentana;
     end;

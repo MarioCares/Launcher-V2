@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Programas>
 	<Programa nombre="opera" ruta="C:\Program Files (x86)\Opera\opera.exe" />
-	<Programa nombre="ie" ruta="C:\Program Files\Internet Explorer\iexplore.exe"/>
+	<Programa nombre="ie" ruta="C:\Program Files\Internet Explorer\iexplore.exe" />
+	<Programa nombre="note" ruta="C:\Program Files (x86)\Notepad++\notepad++.exe" />
 </Programas>
 

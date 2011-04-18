@@ -114,7 +114,6 @@ implementation
       formOpciones:= TForm2.Create(Application);
       try
         formOpciones.ShowModal;
-        //formOpciones.llenaGrilla(ArrayProgramas);
       finally
         formOpciones.Free;
       end;
