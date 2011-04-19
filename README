@@ -1,8 +1,9 @@
 Lanzador V-2
 
-Por ahora... ingresar manualmente el nombre y la ruta de la aplicacion al
-archivo XML.
-
 La aplicacion se ejecuta en segundo plano, con un icono en la bandeja.
-Para llamarla o esconderla, usar la combinacion de teclas Ctrl+Alt+<
-Escribir nombre app (como sale en XML) y Enter.
+Para llamarla o esconderla, usar combinacion Ctrl+Alt+<
+
+Click derecho en icono -> Opciones
+	Para agregar un nuevo acceso: tomar programa, archivo, etc. Y arrastrarlo a la ventana.
+
+Mas info en http://danlaho.wordpress.com
